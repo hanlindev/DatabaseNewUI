@@ -15,13 +15,12 @@
 .headerTitle {
 	height: 100%;
 	color: #FAFAFA;
-	padding-top: 1.5%;
+	padding-top: 20px;
 	-webkit-margin-before: 0em;
 	-webkit-margin-after: 0em;
 }
 
 .pageContent {
-	height: 500px;
 	background-color: #F2F2F2;
 }
 
@@ -33,6 +32,22 @@
 	display: table-cell;
 	vertical-align: middle;
 	height: 100%;
+}
+
+.welcomeMessage {
+	width: 300px;
+	display: inline;
+}
+.navigatorBar {
+	background-color: #BDBDBD;
+	width: 100%;
+	moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+.navigatorCell {
+	width: 100px;
+	text-align: center;
+	display: inline-block;
 }
 
 .center {

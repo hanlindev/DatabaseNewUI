@@ -1,3 +1,7 @@
+.pageContent {
+	height: 500px;
+}
+
 #loginPageContent {
 	height: 100%;
 	width: 100%;
@@ -45,6 +49,6 @@
 }
 #signupForm, #loginForm {
 	position: relative;
-	padding-top: 15%;
-	padding-left: 18%;
+	padding-top: 90px;
+	padding-left: 90px;
 }
