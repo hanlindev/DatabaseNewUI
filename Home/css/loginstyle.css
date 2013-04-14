@@ -1,0 +1,50 @@
+#loginPageContent {
+	height: 100%;
+	width: 100%;
+}
+
+#websiteInfo {
+	width: 100%;
+}
+#websiteInfo h3 {
+	font-size: 40px;
+}
+
+#websiteInfo p {
+	font-size: 30px;
+	display: inline;
+}
+
+#websiteInfo li {
+	font-size: 30px;
+
+}
+
+#loginSignupContent {
+	height: 70%;
+}
+
+#loginSignupTabs {
+	background-color: #F2F2F2;
+}
+
+#loginTab, #signupTab{
+	background-color: #F2F2F2;
+}
+
+#email1, #password1, #email2, #password2, #name {
+	width: 200px;
+}
+
+#loginSignupTabs {
+	height: 100%;
+}
+
+#signupTab, #loginTab {
+	overflow: hidden !important;
+}
+#signupForm, #loginForm {
+	position: relative;
+	padding-top: 15%;
+	padding-left: 18%;
+}

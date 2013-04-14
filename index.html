@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>Room Booking System</title>
+	<link rel="stylesheet" href="Home/css/loginstyle.css" type="text/css" />
+	<link rel="stylesheet" href="Home/css/style.css" type="text/css"/>
+	<link href="Home/ui/css/redmond/jquery-ui-1.10.2.custom.css" rel="stylesheet">
+	<script src="Home/ui/js/jquery-1.9.1.js"></script>
+	<script src="Home/ui/js/jquery-ui-1.10.2.custom.js"></script>
+	<script src="../Modules/jquery.form.js"></script>
+	<script>
+	// Prepare documents
+	$(function() {
+		$("#loginSignupTabs").tabs({
+			hide: {
+				effect: "fade"
+			},
+			show: {
+				effect: "fade"
+			},
+			heightStyle: "fill"
+		})
+	});
+	</script>
+
+	<script>
+	
+	</script>
+
+</head>
+<body>
+	<div class="mainPage">
+		<div class="header">
+			<h1 class="headerTitle">Groupate Hotel Booking</h1>
+		</div>
+		<div class="pageContent">
+			<div id="loginPageContent" class="tableDiv">
+				<!-- Left Side -->
+				<div class="tableDivCell LR-LCell">
+					<div id="websiteInfo">
+						<h3>Welcome to GHB!</h3>
+						<p> Overhere you can
+							<ul>
+								<li>Search and book hotels by lots of features.</li>
+								<li>Review the hotels and share with your friends.(WIP feature)</li>
+							</ul>
+						</p>
+					</div>
+				</div>
+				<!-- Right Side -->
+				<div class="tableDivCell LR-RCell">
+					<div id="loginSignupContent">
+						<div id="loginSignupTabs">
+							<ul>
+								<li>
+									<a href="#loginTab" class="greyBack">I have an account</a>
+								</li>
+								<li>
+									<a href="#signupTab" class="greyBack">I don't have an account</a>
+								</li>
+							</ul>
+							<div id="loginTab" class="greyBack center">
+								<form id="loginForm" action="Home/checklogin.php" method="POST" class="center" autocomplete="off">
+									<table width="500" border="0" class="center">
+										<tr>
+											<td>Email:</td>
+											<td><input id="email1" name="email" type="text" size="15" class="text"/></td>
+										</tr>
+										<tr>
+											<td>Password:</td>
+											<td><input id="password1"name="password" type="password" size="15" class="text"/></td>
+										</tr>
+										<tr>
+											<td colspan="2"><input type="submit" id="submit" name="submit" value="Log In" class="submit"/></td>
+										</tr>
+									</table>
+								</form>
+							</div>
+							<div id="signupTab" class="greyBack center">
+								<form id="signupForm" action="Home/signup.php" method="POST" class="center" autocomplete="off">
+									<table width="500" border="0" class="center">
+										<tr>
+											<td>Username:</td>
+											<td><input name="name" type="text" id="name" size="15" class="text" autocomplete="off"/></td>
+										</tr>
+										<tr>
+											<td>Email:</td>
+											<td><input name="email" type="text" id="email2" size="15" class="text" autocomplete="off"/><br/></td>
+										</tr>
+										<tr>
+											<td>Password:</td>
+											<td><input id="password2" type="password" name="password" size="15" class="text" autocomplete="off"/><br/></td>
+										</tr>
+										<tr>
+											<td colspan="2"><input type="submit" name="submit" value="Sign Up" class="submit"/></td>
+										</tr>
+									</table>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+			<div class="linkGroup">
+				<div class="aLink">
+					<a class="aboutus" href="Home/about.php">About Us</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>

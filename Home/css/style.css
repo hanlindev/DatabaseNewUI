@@ -1,0 +1,92 @@
+.mainPage {
+	moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border: 1px solid #c9e1f4;
+}
+
+.header {
+	moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	height: 80px;
+	vertical-align: middle;
+	background-color: #3b5998;
+}
+
+.headerTitle {
+	height: 100%;
+	color: #FAFAFA;
+	padding-top: 1.5%;
+	-webkit-margin-before: 0em;
+	-webkit-margin-after: 0em;
+}
+
+.pageContent {
+	height: 500px;
+	background-color: #F2F2F2;
+}
+
+.tableDiv {
+	display: table;
+}
+
+.tableDivCell {
+	display: table-cell;
+	vertical-align: middle;
+	height: 100%;
+}
+
+.center {
+	text-align:center;
+}
+
+form.center {
+	display: inline-block;
+	width: 100%;
+	margin: auto;
+}
+
+table.center {
+	display: block;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.LR-LCell {
+	width: 50%;
+}
+
+.LR-RCell {
+	width: 50%;
+}
+
+.footer {
+	border-top-style: solid;
+	border-top-width: 1px;
+	border-top-color: #c9e1f4;
+	height: 50px;
+	background-color: #3b5998;
+}
+
+
+h1, h3, p, ul {
+	font-family: Sans-serif;
+	font-weight: heavy !important;
+	text-rendering: optimizelegibility;
+}
+
+input {
+	moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+input.text {
+	background-color: #FAFAFA;
+}
+
+input.submit {
+	background-color: #67ae55;
+}
+
+.greyBack {
+	background-color: #F2F2F2;
+}
