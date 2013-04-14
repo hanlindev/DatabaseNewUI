@@ -65,6 +65,8 @@ table.center {
 	border-top-color: #c9e1f4;
 	height: 50px;
 	background-color: #3b5998;
+	moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
 }
 
 

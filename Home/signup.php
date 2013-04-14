@@ -20,6 +20,7 @@ function clear($message)
 	$message = htmlentities($message);
 	return trim($message);
 }
+header('Content-type: text/xml');
 if ($_POST['submit'])
 {
 	   mysql_connect($localhost,$mysql_user_name,$mysql_password);
@@ -35,13 +36,14 @@ if ($_POST['submit'])
 		$sql2 = "INSERT INTO user (email, user_name, password) VALUES ('$email','$name', '$password')";
 		mysql_query($sql2);
 		mysql_close();
-		echo 'You have been entered into our database.';
-		
-		echo '<a href="index.html">Go back to Login page</a>';
+		//echo 'You have been entered into our database.';
+		//echo '<a href="index.html">Go back to Login page</a>';
+		echo "<root><message>success</message></root>";
 	}
 	else {
-		echo 'Name already in use.';
-		echo '<a href="index.html">Go back to Sign Up page</a>';
+		//echo 'Name already in use.';
+		//echo '<a href="index.html">Go back to Sign Up page</a>';
+		echo "<root><message>failure</message></root>";
 	}
 }
 ?>

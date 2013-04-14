@@ -12,6 +12,7 @@ include('config.php');
 	ob_start();
 	session_start();
 	error_reporting(E_ERROR | E_PARSE);
+	header('Content-type: text/xml');
 	$log = $_GET['log'];
 	function clear($message)
 	{
@@ -43,16 +44,18 @@ include('config.php');
 		{
 			session_regenerate_id(true);
 			ob_end_clean();
-			echo "Successfully Logged In!\n";
-			echo 'Welcome ' . $output['user_name']."\n";
+			//echo "Successfully Logged In!\n";
+			//echo 'Welcome ' . $output['user_name']."\n";
 			//echo 'isAdmin'.$output['isAdmin'];
-			echo '<a href="?log=off">log off</a>'."\n";
+			//echo '<a href="?log=off">log off</a>'."\n";
 			
 			$_SESSION['login'] = array($email, $password);
-			echo '<a href=home.php>Go to Home page</a>'."\n";
+			//echo '<a href=home.php>Go to Home page</a>'."\n";
+
+			echo '<root><message>success</message></root>';
 		}
 		else
-			echo 'Login failed';
+			echo '<root><message>failure</message></root>';
 	}
 	else
 	{

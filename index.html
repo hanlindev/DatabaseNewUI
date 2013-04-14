@@ -9,7 +9,7 @@
 	<link href="Home/ui/css/redmond/jquery-ui-1.10.2.custom.css" rel="stylesheet">
 	<script src="Home/ui/js/jquery-1.9.1.js"></script>
 	<script src="Home/ui/js/jquery-ui-1.10.2.custom.js"></script>
-	<script src="../Modules/jquery.form.js"></script>
+	<script src="Modules/jquery.form.js"></script>
 	<script>
 	// Prepare documents
 	$(function() {
@@ -21,12 +21,76 @@
 				effect: "fade"
 			},
 			heightStyle: "fill"
-		})
+		});
+
+		$("#signupDialog").dialog({
+			autoOpen: false,
+			width: 400
+		});
 	});
 	</script>
 
 	<script>
-	
+	// Prepare the forms
+	$(document).ready(function() { 
+	    // bind form using ajaxForm 
+	    $('#loginForm').ajaxForm({ 
+	        // dataType identifies the expected content type of the server response 
+	        dataType:  'xml', 
+	 
+	        // success identifies the function to invoke when the server response 
+	        // has been received 
+	        success:   processLoginResponse
+	    });
+
+	    $('#signupForm').ajaxForm({ 
+	        // dataType identifies the expected content type of the server response 
+	        dataType:  'xml',
+	 
+	        // success identifies the function to invoke when the server response 
+	        // has been received 
+	        success:   processSignupResponse
+	    });
+	});
+
+   function processLoginResponse(responseXml) {
+		var message = $('message', responseXml).text();
+		if (message == 'success') {
+			$('#loginResult').text(message);
+			$('#loginResult').attr("style", "color: #04B431;");
+			window.location = ("Home/home.php");
+		} else if (message == 'failure') {
+			$('#loginResult').text('Login failed: user doesn\'t exist or password is wrong.');
+			$('#loginResult').attr("style", "color: #FF0000;");
+		}
+	}
+
+	function processSignupResponse(responseXml) {
+		var message = $('message', responseXml).text();
+		if (message == 'success') {
+			$("#signupDialog").dialog("open");
+			event.preventDefault();
+			var email = $("#email2").val();
+			var password = $("#password2").val();
+			$("#email1").text(email);
+			$("#password2").text(password);
+			var sec = $('#signupDialogMessage span').text();
+			var sec = $('#signupDialogMessage span').text();
+			var timer = setInterval(function() { 
+			    $('#signupDialogMessage span').text(--sec);
+			    if (sec == 0) {
+			    	$("#submit").click();
+			        clearInterval(timer);
+			    } 
+			}, 1000);
+		} else if (message == 'failure') {
+			$("#signupResult").text("Email already in use!");
+		}
+	}
+
+	function showRequest(request) {
+		alert(request);//for debugging
+	}
 	</script>
 
 </head>
@@ -77,6 +141,7 @@
 										</tr>
 									</table>
 								</form>
+								<span id="loginResult"></span>
 							</div>
 							<div id="signupTab" class="greyBack center">
 								<form id="signupForm" action="Home/signup.php" method="POST" class="center" autocomplete="off">
@@ -98,6 +163,7 @@
 										</tr>
 									</table>
 								</form>
+								<span id="signupResult" style="color: #FF0000;"></span>
 							</div>
 						</div>
 					</div>
@@ -111,5 +177,10 @@
 				</div>
 			</div>
 		</div>
+	</div>
+
+	<!-- Signup dialog -->
+	<div id="signupDialog" title="Thank you!">
+		<p id="signupDialogMessage"> You will be directed to the home page in <span>5</span> seconds. Enjoy!</p>
 	</div>
 </body>
