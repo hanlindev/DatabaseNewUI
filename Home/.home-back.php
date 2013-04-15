@@ -161,11 +161,13 @@ include ('pageaccess.php');
 						<th>Bed Size</th>
 						<th>No of Beds</th>
 					</tr>
-				</thread>
-				<tbody>
-					<?php
-					require 'drawPopularBookingTable.php';
-		?></tbody></table>
+					</thread>
+					<tbody>
+						<?php
+						require 'drawPopularBookingTable.php';
+						?>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>

@@ -1,5 +1,5 @@
 #searchCriteria {
-	width: 200px;
+	width: 250px;
 }
 
 .features {
@@ -7,9 +7,19 @@
 }
 
 .pageContent {
-	min-height: 1200px;
+	min-height: 900px;
 }
 
 .featuresRightCol {
 	text-align: left;
+}
+
+td {
+	font-size: 20px;
+}
+
+.ui-button-text {
+	font-size: 12px !important;
+	padding-top: 0px;
+	padding-bottom: 0px;
 }

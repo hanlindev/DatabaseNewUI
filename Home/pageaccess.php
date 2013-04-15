@@ -34,16 +34,16 @@ else
 	$row = mysql_fetch_array($sql);
 	if($row&&!$row['isAdmin']){
 		$isAdmin = $row['isAdmin'];
-		echo 'Welcome '.$row['user_name'];
-		echo '<a href="checklogin.php?log=off">log off</a>
+		echo "<span id='welcomeMsg'>Welcome ".$row['user_name'];
+		echo '<a href="checklogin.php?log=off">log off</a></span>
 ';
 	}
 	else if ($row&&$row['isAdmin']){
 		$isAdmin = $row['isAdmin'];
-		echo "You are admin";
+		echo "<span id='welcomeMsg'>You are admin";
 		echo '
 <a href="checklogin.php?log=off">log off</a>
-';
+</span>';
 	}
 	else 
 	{

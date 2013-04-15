@@ -1,3 +1,7 @@
+<?php
+//Check if the current user have the access to current page
+include ('pageaccess.php');
+?>
 <!DOCTYPE html>
 
 <html>
@@ -15,11 +19,38 @@
 		$( ".datepicker" ).datepicker({
 			dateFormat: "yy-mm-dd"
 		});
-		$("#featureToggle").button();
+		$("#featureShowButton").button({
+			icons: {
+				primary: "ui-icon-triangle-1-s"
+			}
+		});
+		$("#featureHideButton").button({
+			icons: {
+				primary: "ui-icon-triangle-1-n"
+			}
+		});
+		$("#search").button();
 	});
 	</script>
 	<script>
-	var featureShow = false;
+	$(document).ready(function() {
+		$("#welcomeMsg").appendTo("#welcomeDiv");
+
+		$("#listOfFeatures").slideUp("slow");
+		$("#featureHideButton").hide();
+		// Set the button
+		$("#featureShowButton").click(function() {
+			$("#listOfFeatures").slideToggle("slow");
+			$("#featureShowButton").hide();
+			$("#featureHideButton").show();
+		});
+
+		$("#featureHideButton").click(function() {
+			$("#listOfFeatures").slideToggle("slow");
+			$("#featureHideButton").hide();
+			$("#featureShowButton").show();
+		});
+	});
 	</script>
 </head>
 <body>
@@ -27,11 +58,7 @@
 	<div class="mainPage">
 		<!-- Navigator bar -->
 		<div class="tableDiv navigatorBar">
-			<div class="tableDivCell welcomeMessage">
-				<?php
-				//Check if the current user have the access to current page
-				include ('pageaccess.php');
-				?>
+			<div id="welcomeDiv" class="tableDivCell welcomeMessage">
 			</div>
 			<div class="tableDivCell navigatorCell">
 				<a href="home.php" id="home">Home</a>
@@ -57,31 +84,31 @@
 								<td>Country</td>
 							</tr>
 							<tr>
-								<td><input id="country" name="country" type="text" value=""/></td>
+								<td><input id="country" name="country" type="text" value="" class="fullLength"/></td>
 							</tr>
 							<tr>
 								<td>City</td>
 							</tr>
 							<tr>
-								<td><input id="city" name="city" type="text" value=""/></td>
+								<td><input id="city" name="city" type="text" value="" class="fullLength"/></td>
 							</tr>
 							<tr>
 								<td>Street</td>
 							</tr>
 							<tr>
-								<td><input id="street" name="street"  type="text" value=""/></td>
+								<td><input id="street" name="street"  type="text" value="" class="fullLength"/></td>
 							</tr>
 							<tr>
 								<td>No Of Rooms To Book</td>
 							</tr>
 							<tr>
-								<td><input id="no_reserving" name="no_reserving"  type="text" value=""/></td>
+								<td><input id="no_reserving" name="no_reserving"  type="text" value="" class="fullLength" class="fullLength"/></td>
 							</tr>
 							<tr>
 								<td>Hotel Stars</td>
 							</tr>
 							<tr>
-								<td><select name = "star" >
+								<td><select name = "star" class="fullLength">
 										<option value="0">Any</option>
 										<option value="1">1</option>
 										<option value="2">2</option>
@@ -95,7 +122,7 @@
 								<td>Room Class</td>
 							</tr>
 							<tr>
-								<td><select name="room_class" >
+								<td><select name="room_class" class="fullLength">
 										<option value="0">Any</option>
 										<option value="1">Standard</option>
 										<option value="2">Superior</option>
@@ -108,7 +135,7 @@
 								<td>Bed Size</td>
 							</tr>
 							<tr>
-								<td><select name="bed_size">
+								<td><select name="bed_size" class="fullLength">
 										<option value="0">Any</option>
 										<option value="1">Single</option>
 										<option value="2">Double</option>
@@ -122,7 +149,7 @@
 								<td>Bed Number</td>
 							</tr>
 							<tr>
-								<td><select name="bed_no" >
+								<td><select name="bed_no" class="fullLength">
 										<option value="0">Any</option>
 										<option value="1">1</option>
 										<option value="2">2</option>
@@ -132,13 +159,16 @@
 										<option value="6">6</option>
 									</select></td>
 							</tr>
+							<tr id="featureShow" class="center">
+								<td><button id="featureShowButton" type="button" style="width: 100%;">Show Features</button></td>
+							</tr>
+							<tr id="featureHide" class="center">
+								<td><button id="featureHideButton" type="button" style="width: 100%;">Hide Features</button></td>
+							</tr>
 						</table>
 						<!-- features -->
-						<table id="featuresTable" class="features" border="0">
-							<tr class="center">
-								<td colspan="2"><button id="featureToggle" type="button"></button></td>
-							</tr>
-							<span>
+						<span id="listOfFeatures">
+							<table id="featuresTable" class="features" border="0">
 								<tr>
 									<td><input type="hidden" name="sustain" value="0">
 										<input type="checkbox" name="sustain" value="1">
@@ -235,8 +265,8 @@
 									</td>
 									<td class="featuresRightCol">Tennis</td>
 								</tr>
-							</span>
-						</table>
+							</table>
+						</span>
 						<table class="features center" border="0">
 							<tr>
 								<td>Check In Date</td>
@@ -256,6 +286,36 @@
 						</table>
 					</form>
 				</div>
+				<!-- End feature cell-->
+				<!-- Right side of table -->
+				<div class="tableDivCell">
+					<div class="tableDiv">
+						<!-- popular rooms table-->
+						<div class="tableDivCell">
+							<div id="pop_hotel_div">
+								<h3 >Popular Hotel Rooms</h3>
+								<table id="popular_search_table" summary="Top 10 Popular Hotel Rooms">
+									<thread>
+									<tr>
+										<th>Rank</th>
+										<th>Hotel Name</th>
+										<th>Room Class</th>
+										<th>Bed Size</th>
+										<th>No of Beds</th>
+									</tr>
+									</thread>
+									<tbody>
+										<?php
+										require 'drawPopularBookingTable.php';
+										?>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<!-- End popular rooms table-->
+					</div>
+				</div>
+				<!-- End right side-->
 			</div>
 		</div>
 		<div class="footer">
