@@ -125,3 +125,20 @@ div {
 	left: 1570px;
 	z-index: 10;
 }
+
+.accordionDiv {
+	height: 350px;
+}
+
+.searchResultSlideshow {
+	-webkit-transform: scale(0.7); /* Saf3.1+, Chrome */
+	-moz-transform: scale(0.7); /* FF3.5+ */
+	-ms-transform: scale(0.7); /* IE9 */
+	-o-transform: scale(0.7); /* Opera 10.5+ */
+	transform: scale(0.7);
+}
+
+.LR-LCell {
+	position: relative;
+	left: -60px !important;
+}

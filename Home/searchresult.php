@@ -1,10 +1,7 @@
 <?php
-require '../Modules/dbhandler.php';
-require 'valuenamemapping.php';
-
-/*=========================================================
-=            Collecting Data Using POST Method            =
-=========================================================*/
+//=========================================================
+//=            Collecting Data Using POST Method            =
+//=========================================================
 
 $country         = $_POST["country"]; 
 $city            = $_POST["city"];		  
@@ -33,11 +30,21 @@ $tennis          = $_POST['tennis'];
 $checkin_date    = $_POST['checkin_date'];
 $checkout_date   = $_POST['checkout_date'];
 
-/*-----  End of Collecting Data Using POST Method  ------*/
+require '../Modules/dbhandler.php';
+require 'valuenamemapping.php';
+ob_start();
+include ('pageaccess.php');
+$string = ob_get_contents();
+ob_end_clean();
 
-/*===========================================================
-=            Call Search Function From dbhandler            =
-===========================================================*/
+header('Content-type: text/html');
+
+
+//-----  End of Collecting Data Using POST Method  ------
+
+//===========================================================
+//=            Call Search Function From dbhandler            =
+//===========================================================/
 
 $hotelInfo = dbhandler::getAssocArray('country', $country, 'city', $city, 'street', $street, 'star', $star);
 $roomInfo = dbhandler::getAssocArray('room_class', $roomClass, 'bed_size', $bedSize, 'no_bed', $bedNo);
@@ -56,15 +63,15 @@ catch (Exception $e){
 	return;
 }
 
-/*-----  End of Call Search Function From dbhandler  ------*/
+//-----  End of Call Search Function From dbhandler  ------
 
 
-/*=================================================
-=            Build Search Result Table            =
-=================================================*/
+//=================================================
+//=            Build Search Result Table            =
+//=================================================/
 
 $tableHead =<<<EOD
-<table id="search_result" summary="Search Result Table">
+<table summary="Search Result Table" class="resultTable">
 	<thread>
 		<tr>
 			<th>Hotel ID</th>
@@ -78,9 +85,10 @@ $tableHead =<<<EOD
 	</thread>
 	<tbody>
 EOD;
+$tableTail = '</tbody></table>';
 
 if (!$hotels) {
-	echo "<root><message>failure</message><root>";
+	echo "<div class='failure'></div>";
 } else {
 	$tableContent = "";
 	foreach($hotels as $row) {
@@ -93,9 +101,15 @@ if (!$hotels) {
 		$hotelname       = $row['hotelname'];
 		$room_class_name = getRoomClassName($room_class);
 		$bed_size_name   = getBedSizeName($bed_size);
+		$room_desc       = $row['room_desc'];
+
+		$room_desc = explode('<space>', $room_desc);
+		$imgurl = $room_desc[0];
+		$description = $room_desc[1];
 		
 		if ($no_reserving <= $availability){
-			$tableContent .= <<<EOD
+			// Get the table
+			$theTable = $tableHead.<<<EOD
 <tr>
 	<td>$hotelid</td>
 	<td>$hotelname</td>
@@ -104,13 +118,37 @@ if (!$hotels) {
 	<td>$bed_size_name</td>
 	<td>$no_bed</td>
 	<td>
-		<button onclick=\"location.href='book.php?hotelid=".$hotelid."&availability=".$availability."&room_class=".$room_class."&bed_size=".$bed_size."&no_bed=".$no_bed."&checkin_date=".$checkin_date."&checkout_date=".$checkout_date."&no_reserving=".$no_reserving."&hotelname=".$hotelname.'\'">Book</button>
+		<button onclick=\"location.href='book.php?hotelid=$hotelid&availability=$availability&room_class=$room_class&bed_size=$bed_size&no_bed=$no_bed&checkin_date=$checkin_date&checkout_date=$checkout_date&no_reserving=$no_reserving&hotelname=$hotelname'\">Book</button>
 	</td>
 </tr>
 EOD;
+			$theTable .= $tableTail;
+
+			//Get the images
+			$images = "";
+			// Get all images from the dir
+			$imageObjects = glob("".$imgurl."*.jpg");
+			$imgs = array();
+			foreach ($imageObjects as $aImage) {
+				$imgs[] = "$aImage";
+			}
+
+			// get the elements
+			foreach ($imgs as $aImg) {
+				$images .= "<img src='$aImg'/>";
+			}
+
+			$tableContent .= <<<EOD
+<h3>$hotelname: $room_class_name $bed_size_name x $no_bed</h3>
+<div class="accordionDiv">$theTable
+<div class="tableDiv">
+<div class="tableDivCell LR-LCell searchResultSlideshow">$images</div>
+<div class="tableDivCell LR-RCell"><p>$description</p></div>
+</div>
+</div>
+EOD;
 		}
 	}
-	$tableTail = '</tbody></table>';
-	$rv = $tableHead . $tableContent . $tableTail;
-	echo "<root><message>$rv</message></root>";
+	echo "$tableContent";
+}
 ?>

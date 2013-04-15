@@ -424,7 +424,7 @@ class dbhandler {
 		// Get available rooms from matching hotels
 		// Get available rooms from matching hotels
 		$roomConditions = <<<EOD
-SELECT f.hotelid, h.hotelname, f.room_class, f.bed_size, f.no_bed, f.room_count
+SELECT f.hotelid, h.hotelname, f.room_class, f.bed_size, f.no_bed, f.room_count, f.room_desc
 FROM hotel h, facility f
 WHERE h.hotelid=f.hotelid
 EOD;
@@ -488,7 +488,7 @@ $timeCondition
 GROUP BY r.hotelid, r.room_class, r.bed_size, r.no_bed
 EOD;
 		$joinResults = <<<EOD
-SELECT ro.hotelid, ro.hotelname, ro.room_class, ro.bed_size, ro.no_bed, ro.room_count, ro.room_count - re.rCount AS availability
+SELECT ro.hotelid, ro.hotelname, ro.room_class, ro.bed_size, ro.no_bed, ro.room_count, ro.room_desc, ro.room_count - re.rCount AS availability
 FROM ($findRoomCountQuery) AS ro
 LEFT JOIN ($findReserveCountQuery) AS re
 ON ro.hotelid = re.hotelid AND ro.room_class = re.room_class AND ro.bed_size = re.bed_size AND ro.no_bed = re.no_bed;
