@@ -82,7 +82,7 @@ findAllBooking();
 			"
 				<input name=\"checkout_date".$count."\" type=\"text\" value =\"".$checkout_date."\" onchange=\"updateCheckOutDate(this,".$count.")\" readonly=\"readonly\" class=\"datepicker\"></td>
 
-			<form action = \"modifydate.php\" method = \"post\">
+			<form id=\"modifyForm\" action = \"modifydate.php\" method = \"post\">
 
 				<td>
 					<input type=\"submit\" name=\"submit\" value=\"modify date\"></td>
@@ -91,10 +91,11 @@ findAllBooking();
 				<input type=\"hidden\" value=\"".$checkout_date."\" name=\"new_Checkout_date\" />
 			</form>
 			<td>
-				<button onclick=\"location.href='cancelbook.php?ref=".$ref.'\'">Cancel Booking</button>
+				<button onclick=\"startAjax('cancelbook.php?ref=".$ref.'\');">Cancel Booking</button>
 			</td>
 		</tr>
 		';
+		//<button onclick=\"location.href='cancelbook.php?ref=".$ref.'\'">Cancel Booking</button>
 		}
 	}
 	echo "

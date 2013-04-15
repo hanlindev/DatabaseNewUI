@@ -1,7 +1,7 @@
 <?php
 //set up according to your own machine setting
 include('config.php');
-
+header('Content-type: text/html');
 
 session_start();
 function clear($message)
@@ -35,12 +35,14 @@ else
 		//echo $new_user_name;
 		//echo $new_password;
 		$sql = mysql_query("UPDATE user SET user_name = '$new_user_name', password = '$new_password' WHERE email = '$email'");
-		echo 'Your User Name and Password has been successfully changed';
-		echo '<a href="index.html">Go back to Login page</a>';
+		//echo 'Your User Name and Password has been successfully changed';
+		//echo '<a href="index.html">Go back to Login page</a>';
+		echo "<root><message>success</message></root>";
 	}
 	else 
 	{
-		echo "You r not logged in, unable to change password";
+		//echo "You r not logged in, unable to change password";
+		echo "<root><message>success</message></root>";
 		header('Location: userpage.php');
 		exit;
 	}

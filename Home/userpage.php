@@ -22,11 +22,26 @@ include ('pageaccess.php');
 		$(".datepicker").datepicker({
 			dateFormat: "yy-mm-dd"
 		});
+
+		$(".aDialog").dialog({
+			autoOpen: false,
+			width: 400
+		});
 	});
 	</script>
 	<script>
 	$(document).ready(function() {
 		$("#welcomeMsg").appendTo("#welcomeDiv");
+
+		$("#modifyForm").ajaxForm({
+			dataType: 'xml',
+			success: processResult
+		})
+
+		$("#changeUserInfoForm").ajaxForm({
+			dataType: 'xml',
+			success: processInfoResult
+		})
 	});
 	</script>
 	<script>
@@ -77,6 +92,38 @@ include ('pageaccess.php');
 		checkOutDates[index].value = date;
 		
 	}
+
+	function startAjax(link) {
+		$.ajax({
+			url: link,
+			dataType: 'xml',
+			success: processResult
+		});
+	}
+
+	function processResult(response) {
+		var message = $('message', response).text();
+		if (message == 'success') {
+			$("#successfulDialog").dialog("open");
+		} else {
+			var source = $('source', response).text();
+			if (source == 'modify') {
+				$("#failedDialog").dialog("open");
+			} else {
+				$("#noCancelDialog").dialog("open");
+			}
+		}
+	}
+
+	function processInfoResult(response) {
+		var message = $('message', response).text();
+		if (message == 'success') {
+			$("#successfulInfoDialog").dialog("open");
+		} else {
+			var source = $('source', response).text();
+			$("#failedInfoDialog").dialog("open");
+		}
+	}
 	</script>
 </head>
 <body>
@@ -105,7 +152,7 @@ include ('pageaccess.php');
 				<div id="changeInfoWrapper tableDivCell" style="height: 200px;">
 					<div id="changeUserInfoDiv">
 						<h3>Change User Info</h3>
-						<form action="changeUserInfo.php" method="post">
+						<form id="changeUserInfoForm" action="changeUserInfo.php" method="post">
 							<p>User Name:
 							<input name="new_user_name" type="text"></p>
 							<p>New Password:
@@ -141,5 +188,24 @@ include ('pageaccess.php');
 			</div>
 		</div>
 	</div>
+	<div id="successfulDialog" title="Thank you!" class="aDialog">
+		<p>We have updated your checkin/checkout date or canceled your booking. Please refresh to verify the change. Thank you!</p>
+	</div>
+
+	<div id="failedDialog" title="We are sorry!" class="aDialog">
+		<p>We can't process your request at this moment. This is probably because there is not enough vacancy. Please try again later or search for another hotel.</p>
+	</div>
+
+	<div id="noCancelDialog" title="We are sorry!" class="aDialog">
+		<p>Somehow we can't cancel your booking. Please try again later.</p>
+	</div>
+
+	<div id="failedInfoDialog" title="We are sorry!" class="aDialog">
+		<p>Invalid/conflicting email or no password specified. Please try again.</p>
+	</div>
+	<div id="successfulInfoDialog" title="Thank you!" class="aDialog">
+		<p>User information changed. Thank you!</p>
+	</div>
+
 </body>
 </html>
