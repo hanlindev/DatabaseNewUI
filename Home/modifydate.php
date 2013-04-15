@@ -2,7 +2,7 @@
 
 	<head></head>
 
-	<body style = "color: yellow; font-size: 20px">
+	<body>
 
 <?php //This block verify the user identity: match the email and password.
 	require 'pageaccess.php';

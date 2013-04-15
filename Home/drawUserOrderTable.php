@@ -29,7 +29,7 @@ findAllBookingByEmail($email);
 	else {
 		echo "
 <h3>Booking List For All Users</h3>
-<table id=\"booking_list\">
+<table id=\"booking_list\" class=\"resultTable\">
 	<thread>
 		<tr>
 			<th>Ref No</th>
@@ -131,7 +131,7 @@ findAllCanceledBookingByEmail($email);
 	else {
 		echo "
 <h3>Your Canceled Orders</h3>
-<table id=\"booking_list\">
+<table id=\"booking_list\" class=\"resultTable\">
 <thread>
 	<tr>
 		<th>Ref No</th>
