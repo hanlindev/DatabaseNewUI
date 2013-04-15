@@ -83,7 +83,6 @@ include ('pageaccess.php');
 			target: "#searchResultDiv",
 			success: processSearchResult
 		});
-		movePromotion();//for debugging	
 	});
 	</script>
 	<script>
@@ -122,12 +121,15 @@ include ('pageaccess.php');
 	} 
 
 	function processSearchResult(responseXml) {
+		$('#searchResultDiv').fadeIn('slow'); 
+		// move promotion away
+		movePromotion();
+		// Set jquery ui
 		$("#searchResultDiv").accordion();
 		$(".searchResultSlideshow").cycle({
 				fx: 'fade',
 				timeout: 5000
 		});
-		$(".searchResultSlideshow").addClass("LR-LCell");
 	}
 	</script>
 </head>

@@ -90,14 +90,14 @@ div {
 	position: absolute;
 	top: 500px;
 	left: 600px;
-	z-index: 2;
+	z-index: 12;
 }
 
 .smallNaviPosition {
 	position: absolute;
 	top: 440px !important;
 	left: 550px !important;
-	z-index: 2;
+	z-index: 12;
 }
 
 #promoNav {
