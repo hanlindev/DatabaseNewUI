@@ -139,10 +139,10 @@ EOD;
 			}
 
 			$tableContent .= <<<EOD
-<h3>$hotelname: $room_class_name $bed_size_name x $no_bed</h3>
-<div class="accordionDiv">$theTable
+<h3 class="accordionChild">$hotelname: $room_class_name $bed_size_name x $no_bed</h3>
+<div class="accordionDiv accordionChild">$theTable
 <div class="tableDiv">
-<div class="tableDivCell LR-LCell searchResultSlideshow">$images</div>
+<div class="tableDivCell LR-LCell searchResultSlideshow accordionChild">$images</div>
 <div class="tableDivCell LR-RCell"><p>$description</p></div>
 </div>
 </div>

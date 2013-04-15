@@ -760,7 +760,6 @@ EOD;
 	private function removeAllReservation($ref) {
 		$constraint = "ref='$ref'";
 		$this->deleteFromReserve($constraint);
-		$this->sendQueries();
 	}
 
 }

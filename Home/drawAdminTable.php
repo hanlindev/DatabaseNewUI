@@ -183,6 +183,7 @@ findAllCanceledBooking();
 }
 
 function phpmyadmin(){
+	echo "<div style='height: 150px;'><div class='dbLoginForm'>";
 	echo "<h3>Go To Database Management Page</h3>";
 	echo "<form id=\"gotopphpmyadmin\"method=\"post\" action=\"../phpMyAdmin/index.php\" name=\"login_form\" target=\"_top\" class=\"login\">
         
@@ -195,6 +196,6 @@ function phpmyadmin(){
   
         <input value=\"Go\" type=\"submit\" id=\"input_go\">
     	<input type=\"hidden\" name=\"token\" value=\"19da615435e73d69f4a75462f44694f9\">
-</form>";
+</form></div></div>";
 }
 ?>

@@ -81,11 +81,13 @@ include ('pageaccess.php');
 		
 		$("#searchForm").ajaxForm({
 			target: "#searchResultDiv",
+			beforeSubmit: prepareSubmission,
 			success: processSearchResult
 		});
 	});
 	</script>
 	<script>
+	var corner = false;
 	// functions
 	function toLargeImg(aImg) {
 		var width = $(aImg).width();
@@ -101,6 +103,17 @@ include ('pageaccess.php');
 		$("#promotionImg img").toggleClass("scaleImg");
 		$("#promotionDiv").toggleClass("centerFocus");
 		$("#promotionDiv").toggleClass("cornerFocus");
+	}
+
+	function movePromotionToCorner() {
+		if (!corner) {
+			$("#promoNav").addClass("smallNaviPosition");
+			$("#promoNav").removeClass("bigNaviPosition");
+			$("#promotionImg img").addClass("scaleImg");
+			$("#promotionDiv").removeClass("centerFocus");
+			$("#promotionDiv").addClass("cornerFocus");
+			corner = true;
+		}
 	}
 
 	// pre-submit callback 
@@ -120,16 +133,23 @@ include ('pageaccess.php');
 	    return true; 
 	} 
 
+	function prepareSubmission() {
+		try {
+			$(".accordionChild").remove();
+		} catch(e){}
+	}
+
 	function processSearchResult(responseXml) {
 		$('#searchResultDiv').fadeIn('slow'); 
-		// move promotion away
-		movePromotion();
+		
 		// Set jquery ui
 		$("#searchResultDiv").accordion();
 		$(".searchResultSlideshow").cycle({
 				fx: 'fade',
 				timeout: 5000
 		});
+		// move promotion away
+		movePromotionToCorner();
 	}
 	</script>
 </head>

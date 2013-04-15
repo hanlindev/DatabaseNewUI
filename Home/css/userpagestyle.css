@@ -9,3 +9,14 @@
 	text-align: center;
 	width: 309px;
 }
+.dbLoginForm {
+	display: block;
+	background: url(../images/interface.gif) no-repeat 0 -90px;
+	color:#666666;
+	font-size: 18px;
+	height: 40px;
+	line-height: 30px;
+	margin: 40px 0 0;
+	text-align: center;
+	width: 309px;
+}
