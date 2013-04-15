@@ -4,14 +4,17 @@
 ===========================================*/
 
 //Check if the current user have the access to current page
+ob_start();
 include ('pageaccess.php');
+$string = ob_get_contents();
+ob_end_clean();
 //include database configuration
 include('config.php');
 //include dbhandler
 require '../Modules/dbhandler.php';
 //include value name mapping function
 require 'valuenamemapping.php';
-
+header('Content-type: text/xml');
 
 /*-----  End of Include Files  ------*/
 
@@ -70,23 +73,30 @@ try {
 	//}
 	
 	if (!is_null($ref = $dbh->placeBooking( $email, $hotelid, $room_class, $bed_size, $no_bed, $no_reserving, $checkin_date, $checkout_date, $ref))){
+		/*
 		echo '<br/>Your booking has been successully placed<br/>';
 		echo 'You Have booked '.$no_reserving.' '.getRoomClassName($room_class).' rooms with '.$no_bed.' '.getBedSizeName($bed_size).' beds in .'.$hotelname."<br/>";
 		echo '<a href=home.php>Click Here To Go Back To Home Page</a>'."<br/>";
+		*/
 		if ($isNewRef){
 			$_SESSION['book'][$count]['ref']           = $ref;
 			$_SESSION['book'][$count]['checkin_date']  =$checkin_date;
 			$_SESSION['book'][$count]['checkout_date'] =$checkout_date;
 		}
+		echo "<root><message>success</message></root>";
 	}
 	else {
+		/*
 		echo '<br/>Your booking has failed! <br/>';
 		echo '<a href=home.php>Click Here To Go Back To Home Page</a>'."<br/>";
+		*/
+		echo "<root><message>failure</message></root>";
 	}
 }  catch(Exception $e) {
 	if (strcmp($e->getMessage(), "Empty query result") == 0) {
 		echo 'We are sorry but we are unable to secure your booking because some other people have taken all vacant rooms.<br/>';
 		echo '<a href=home.php>Click Here To Go Back To Home Page</a><br/>';
+		echo "<root><message>failure</message></root>";
 	}
 }
 

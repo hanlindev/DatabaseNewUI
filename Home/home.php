@@ -84,6 +84,11 @@ include ('pageaccess.php');
 			beforeSubmit: prepareSubmission,
 			success: processSearchResult
 		});
+
+		$(".aDialog").dialog({
+			autoOpen: false,
+			width: 400
+		});
 	});
 	</script>
 	<script>
@@ -150,6 +155,23 @@ include ('pageaccess.php');
 		});
 		// move promotion away
 		movePromotionToCorner();
+	}
+
+	function startAjax(link) {
+		$.ajax({
+			url: link,
+			dataType: 'xml',
+			success: processBookingResult
+		});
+	}
+
+	function processBookingResult(response) {
+		var message = $('message', response).text();
+		if (message == 'success') {
+			$("#successfulBookingDialog").dialog("open");
+		} else {
+			$("#failedBookingDialog").dialog("open");
+		}
 	}
 	</script>
 </head>
@@ -452,5 +474,13 @@ include ('pageaccess.php');
 				</div>
 			</div>
 		</div>
+	</div>
+
+	<div id="successfulBookingDialog" title="Thank you!" class="aDialog">
+		<p>We have recorded your booking information. You can continue browsing the hotels or go to your account page to verify your booking. Thank you!.</p>
+	</div>
+
+	<div id="failedBookingDialog" title="We are sorry!" class="aDialog">
+		<p>We can't process your request at this moment. This is probably because the vacancy has been taken by other customers. Please try again later or search for another hotel.</p>
 	</div>
 </body>

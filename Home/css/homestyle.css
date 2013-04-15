@@ -82,7 +82,7 @@ img {
 	transition: transform 2s ease-out; 
 }
 
-div {
+#promotionDiv {
 	transition: top 2s, left 2s;
 }
 

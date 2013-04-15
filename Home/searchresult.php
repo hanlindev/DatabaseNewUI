@@ -109,6 +109,9 @@ if (!$hotels) {
 		
 		if ($no_reserving <= $availability){
 			// Get the table
+
+			//<button onclick="location.href='book.php?hotelid=$hotelid&availability=$availability&room_class=$room_class&bed_size=$bed_size&no_bed=$no_bed&checkin_date=$checkin_date&checkout_date=$checkout_date&no_reserving=$no_reserving&hotelname=$hotelname'">Book</button>
+
 			$theTable = $tableHead.<<<EOD
 <tr>
 	<td>$hotelid</td>
@@ -118,7 +121,7 @@ if (!$hotels) {
 	<td>$bed_size_name</td>
 	<td>$no_bed</td>
 	<td>
-		<button onclick="location.href='book.php?hotelid=$hotelid&availability=$availability&room_class=$room_class&bed_size=$bed_size&no_bed=$no_bed&checkin_date=$checkin_date&checkout_date=$checkout_date&no_reserving=$no_reserving&hotelname=$hotelname'">Book</button>
+		<button onclick="startAjax('book.php?hotelid=$hotelid&availability=$availability&room_class=$room_class&bed_size=$bed_size&no_bed=$no_bed&checkin_date=$checkin_date&checkout_date=$checkout_date&no_reserving=$no_reserving&hotelname=$hotelname');">Book</button>
 	</td>
 </tr>
 EOD;
