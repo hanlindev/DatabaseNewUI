@@ -14,22 +14,30 @@ include ('pageaccess.php');
 	<script src="ui/js/jquery-1.9.1.js"></script>
 	<script src="ui/js/jquery-ui-1.10.2.custom.js"></script>
 	<script src="../Modules/jquery.form.js"></script>
+	<script src="../Modules/jquery.cycle.all.js"></script>
+	<script src="../Modules/jquery.transit.min.js"></script>
 	<script>
 	$(function() {
 		$( ".datepicker" ).datepicker({
 			dateFormat: "yy-mm-dd"
 		});
-		$("#featureShowButton").button({
+		$("#featureShowButton, #popularShowButton").button({
 			icons: {
 				primary: "ui-icon-triangle-1-s"
 			}
 		});
-		$("#featureHideButton").button({
+		$("#featureHideButton, #popularHideButton").button({
 			icons: {
 				primary: "ui-icon-triangle-1-n"
 			}
 		});
 		$("#search").button();
+		$("#promotionImg").before('<div id="promoNav">').cycle({
+			fx: 'fade',
+			speed: 'fast',
+			timeout: 3000,
+			pager: '#promoNav'
+		});
 	});
 	</script>
 	<script>
@@ -50,10 +58,58 @@ include ('pageaccess.php');
 			$("#featureHideButton").hide();
 			$("#featureShowButton").show();
 		});
+
+		$("#popularShowButton").hide();
+		$("#popularShowButton").click(function() {
+			$("#popularHotelTable").slideToggle("slow");
+			$("#popularShowButton").hide();
+			$("#popularHideButton").show();
+		});
+
+		$("#popularHideButton").click(function() {
+			$("#popularHotelTable").slideToggle("slow");
+			$("#popularHideButton").hide();
+			$("#popularShowButton").show();
+		});
+
+		$("#testButton").click(function() {
+			movePromotion();
+		});
+
+		$("#promoNav").addClass("bigNaviPosition");
+		$("promotionDiv").addClass("centerFocus");
+
+		$("#searchForm").ajaxForm({
+			dataType: 'xml',
+			success: processSearchResult
+		})
 	});
+	</script>
+	<script>
+	// functions
+	function toLargeImg(aImg) {
+		var width = $(aImg).width();
+		var height = $(aImg).height();
+		alert(width + "haha" + height);
+		$(aImg).width(width * 2);
+		$(aImg).height(height * 2);
+	}
+
+	function movePromotion() {
+		$("#promoNav").toggleClass("smallNaviPosition");
+		$("#promoNav").toggleClass("bigNaviPosition");
+		$("#promotionImg img").toggleClass("scaleImg");
+		$("#promotionDiv").toggleClass("centerFocus");
+		$("#promotionDiv").toggleClass("cornerFocus");
+	}
+
+	function processSearchResult(responseXml) {
+
+	}
 	</script>
 </head>
 <body>
+	<button id="testButton">Test This</button>
 	<!-- Main Page-->
 	<div class="mainPage">
 		<!-- Navigator bar -->
@@ -76,8 +132,8 @@ include ('pageaccess.php');
 		<div class="pageContent">
 			<div class="tableDiv">
 				<!-- Feature selector -->
-				<div id="searchCriteria" class="tableDivCell">
-					<form action="searchresult.php" method="POST">
+				<div id="searchCriteria" class="tableDivCell roundCornerFrame">
+					<form id="searchForm" action="searchresult.php" method="POST">
 						<!-- basic information of hotel -->
 						<table border="0" class="features center">
 							<tr>
@@ -272,13 +328,13 @@ include ('pageaccess.php');
 								<td>Check In Date</td>
 							</tr>
 							<tr>
-								<td><input id="indate" name="checkin_date" type="text" class="datepicker" readonly="readonly"/></td>
+								<td><input id="indate" name="checkin_date" type="text" class="datepicker" readonly/></td>
 							</tr>
 							<tr>
 								<td>Check Out Date</td>
 							</tr>
 							<tr>
-								<td><input id="outdate" name="checkout_date" type="text" class="datepicker" readonly="readonly"/></td>
+								<td><input id="outdate" name="checkout_date" type="text" class="datepicker" readonly/></td>
 							</tr>
 							<tr>
 								<td><input id="search" type="submit" value="Search"/></td>
@@ -287,30 +343,56 @@ include ('pageaccess.php');
 					</form>
 				</div>
 				<!-- End feature cell-->
+				<!-- Middle portion -->
+				<div class="tableDivCell middlePortion">
+					<!-- Begin result wrapper -->
+					<div id="searchResultWrapper">
+						<div id="searchResultDiv">
+						</div>
+					</div>
+					<!-- End result wrapper -->
+				</div>
+				<!-- End middle portion-->
+
+				<!-- Promotion slides -->
+				<div id="promotionDiv" class="centerFocus">
+					<div id="promotionImg" class="slideshow">
+						<img src="images/promotion/burj-al-arab1.jpg"/>
+						<img src="images/promotion/burj-al-arab3.jpg"/>
+						<img src="images/promotion/jumeirah-beach-hotel1.jpg"/>
+						<img src="images/promotion/fullertonhotel.jpg"/>
+					</div>
+				</div>
+				<!--End Promotion Slides -->
 				<!-- Right side of table -->
 				<div class="tableDivCell">
 					<div class="tableDiv">
+						<div id="popularTableToggle" class="tableDivCell">
+							<button id="popularShowButton" type="button" style="width: 200px;">Popular Hotel Rooms</button>
+							<button id="popularHideButton" type="button" style="width: 200px;">Popular Hotel Rooms</button>
+						</div>
 						<!-- popular rooms table-->
-						<div class="tableDivCell">
-							<div id="pop_hotel_div">
-								<h3 >Popular Hotel Rooms</h3>
-								<table id="popular_search_table" summary="Top 10 Popular Hotel Rooms">
-									<thread>
-									<tr>
-										<th>Rank</th>
-										<th>Hotel Name</th>
-										<th>Room Class</th>
-										<th>Bed Size</th>
-										<th>No of Beds</th>
-									</tr>
-									</thread>
-									<tbody>
-										<?php
-										require 'drawPopularBookingTable.php';
-										?>
-									</tbody>
-								</table>
-							</div>
+						<div class="tableDivCell positionTopCenter">
+							<span id="popularHotelTable">
+								<div id="pop_hotel_div">
+									<table id="popular_search_table" summary="Top 10 Popular Hotel Rooms" class="resultTable">
+										<thread>
+										<tr>
+											<th>Rank</th>
+											<th>Hotel Name</th>
+											<th>Room Class</th>
+											<th>Bed Size</th>
+											<th>No of Beds</th>
+										</tr>
+										</thread>
+										<tbody>
+											<?php
+											require 'drawPopularBookingTable.php';
+											?>
+										</tbody>
+									</table>
+								</div>
+							</span>
 						</div>
 						<!-- End popular rooms table-->
 					</div>

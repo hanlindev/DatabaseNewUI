@@ -111,3 +111,41 @@ input.submit {
 .greyBack {
 	background-color: #F2F2F2;
 }
+
+.resultTable
+{
+	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+	font-size: 12px;
+	margin-top: 45px;
+	margin-left: 0px;
+	width: 480px;
+	text-align: center;
+	border-collapse: collapse;
+	border-top: 7px solid #9baff1;
+	border-bottom: 7px solid #9baff1;
+}
+
+.resultTable th
+{
+	font-size: 13px;
+	font-weight: normal;
+	padding: 8px;
+	background: #e8edff;
+	border-right: 1px solid #9baff1;
+	border-left: 1px solid #9baff1;
+	color: #039;
+}
+.resultTable td
+{
+	padding: 8px;
+	background: #e8edff; 
+	border-right: 1px solid #aabcfe;
+	border-left: 1px solid #aabcfe;
+	color: #669;
+}
+
+.roundCornerFrame {
+	moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border: 1px solid #c9e1f4;
+}
